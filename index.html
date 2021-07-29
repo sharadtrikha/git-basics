@@ -1,17 +1,165 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document 123</title>
-</head>
-<body>
-    <p>Name</p>
-    <span>Sharad Trikha</span>
-    <span>Company - XYZ</span>
-    <p>This is second para</p>
-    <span>Sharad</span>
-    <span>trial 1234958948495849548958495</span>
-</body>
-</html>
+Installation :
+
+Configuration :
+
+1. System level (/etc/gitconfig or Program Files\Git\etc\gitconfig) ———— git config  —system user.name/user.email
+2. User level (~/.gitconfig or $HOME\.gitconfig) ———— git config —global user.name/user.email
+3. Project level (project_name/.git/config ) ——— git config user.name
+
+note :
+
+Commit also known as Change set.
+HEAD always point to latest commit
+ATomic commits
+
+
+How to make any project/directory into a git repository ?
+
+git init -> will make directory inside the folder that holds different stuff like - HEAD, Refs, etc
+
+What is 3 tree architecture of git ?
+
+1. Untracked - new files or edited files tree (WORKING DIRECTORY)
+2. Staged Tree (STAGING_TREE)
+3. Committed  (REPOSITORY)
+
+Basic Actions -
+
+1. Add - git add . and git commit -m ’msg’
+2. Edit - git add . and git commit -m ‘msg’
+3. Move/rename - git mv <source_filename> <dest_filename>
+4. Delete - git rm <fileName>
+
+
+git diff —color-words q -> to exit
+
+Shortcut for Stage and commit (all tracked files will be staged n committed) -
+
+git commit -a -m ‘msg’ or git commit —all  (untracked files will not be committed)
+
+To view any commit - 
+
+git show <sha_commit_id>
+
+
+To compare two commits :
+
+git show <initial_commit_id> <dest_commit_id>
+
+
+TO Undo -
+
+In Working directory - git checkout —(two dash -> to state we want to checkout from current repo) <filename>
+
+In staging (to unstage)  - git reset HEAD <filename>
+
+Amend Commit - git commit —amend -m ‘dsdsd’
+
+Revert file to previous version - git checkout <commit_id> — (two dash) <filename>
+
+Revert to particular commit -> git revert <commit_id>
+
+Remove Untracked Files -> git clean -f
+
+Reference Commits: 
+TREE-ish :
+
+1. SHA-1 hash (git show <commit_id>)
+2. HEAD pointer ref. - git show HEAD or git show HEAD^ or git show HEAD^^ or git show HEAD n~2
+3. Branch ref 
+4. Tag ref.
+5. Ancestry 
+
+
+BRANCHES: (NEED DIAGRAM HERE)
+
+Cheap.
+Single working directory.
+Fast context switching.
+
+VIEW Branches :
+git branch
+
+CREATE Branch:
+git branch <branch_name>
+
+SWITCH Between Branches:
+git checkout <branch_name>
+
+CREATE and SWITCH Branch: 
+git checkout -b <branch_name>
+
+Switch branches between uncommitted changes: 
+Only possible if there are no conflicts or only untracked files are present
+
+How to know which branch contains all the commits ?
+git branch —merged
+
+RENAME Branch: ( preferable only when it is not pushed to remote for collaboration )
+git branch -m <old_existing_branchname> <new_branch_name> 
+
+DELETE branch:
+git branch -d <branch_name> - Only possible when you are not on the same branch which you want to delete.
+Only there are some unmerged files - git will not allow via above command instead ->
+git branch -D <branch_name> will do the job
+
+RESET Branch : (i.e. when changes are in working directory or staging index)
+
+3 Types of Reset : soft, mixed(default), hard
+
+Soft Reset :
+Only changes HEAD pointer to point some TREE-ISH -> git reset —soft <TREE-ISH>
+
+Mixed(default) Reset:
+Changes HEAD pointer to point some TREE-ISH and also, changes Stagging index to match repository -> git reset —mixed <TREE-ISH>
+
+Hard Reset:
+Changes HEAD pointer to point some TREE-ISH and also, changes Stagging index and working directory to match repository -> git reset —hard <TREE-ISH>
+
+
+REMOTES:
+
+To see remote origin (TRACKING branches) -> git branch -r
+
+
+Whenever, we push our local repo (master) to remote. Two things happen :
+1. Exact same replica gets pushed to remote server (github)
+2. Also, one new branch/pointer ~ origin/master gets created.
+
+ADD Remote repository:
+git remote add origin <.git file> here origin refers to alias for remote repo name
+git push -u origin <local_branch_name>  (u is related to TRACKING BRANCH)
+
+FETCH:
+git fetch or git fetch origin master
+
+Merge:
+git merge or git merge origin/master
+
+
+FETCH + MERGE -> 
+
+git pull
+
+Delete Remote -> 
+
+git push origin —delete <remote_branchname>
+
+TAGS ->
+Lightweight tags and Annotated tags differ in the amount of accompanying meta data they store. A best practice is to consider Annotated tags as public, and Lightweight tags as private. Annotated tags store extra meta data such as: the tagger name, email, and date. This is important data for a public release. Lightweight tags are essentially 'bookmarks' to a commit,
+
+List -
+git tag
+
+TAGS ->
+
+Annotated 
+git tag -a <any verison> -m ‘’msg
+
+Lightweight
+git tag <any_version>
+
+
+Cherry Pick -> 
+
+git cherry-pick <Sha>
